@@ -29,6 +29,8 @@ enum emoticons {
 #define T11 M(11)
 #define T12 M(12)
 #define END_HOME M(0)
+
+#define MY_WIN M(20)
 static uint16_t key_timer;
 
 #define _______ KC_TRNS
@@ -36,6 +38,9 @@ static uint16_t key_timer;
 #define LSHIFT OSM(MOD_LSFT)
 #define FN_WIN LT(_FL, KC_LGUI)
 #define FN_APP LT(_FL, KC_APP)
+
+#define MY_TAB MT(MOD_LCTL | MOD_LSFT, KC_TAB)
+#define MY_CAP MT(MOD_LCTL, KC_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
@@ -48,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
    * |----------------------------------------------------------------|
-   * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
+   * |Ctrl|MYWIN|Alt |        Space         |Alt| FN|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
    */
 
@@ -59,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//		KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
 [_BL] = KEYMAP_ANSI(
   KC_ESC,  T1, 		T2, 		T3, 		T4, 		T5, 		T6, 		T7, 		T8, 		T9, 		T10, 		T11, 		T12, KC_BSPC,KC_GRV, \
-  MT(MOD_LCTL | MOD_LSFT, KC_TAB),  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC,KC_BSLS,KC_DEL, \
-  MT(MOD_LCTL, KC_CAPS), KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,		KC_ENT	   ,KC_PGUP,  \
+  MY_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC,KC_BSLS,KC_DEL, \
+  MY_CAP,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,		KC_ENT	   ,KC_PGUP,  \
   KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT,KC_UP,KC_PGDN, \
-  KC_LCTL, FN_WIN,KC_LALT,                KC_SPC,                        KC_RALT,FN_APP,KC_RCTRL, KC_LEFT,KC_DOWN,KC_RGHT),
+  KC_LCTL, MY_WIN,KC_LALT,                KC_SPC,                        KC_RALT,FN_APP,KC_RCTRL, KC_LEFT,KC_DOWN,KC_RGHT),
 
   /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
@@ -81,10 +86,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FL] = KEYMAP_ANSI(
   _______, KC_1  , KC_2  , KC_3  , KC_4  , KC_5  , KC_6  , KC_7  , KC_8  , KC_9  , KC_0  , KC_F11, KC_F12, KC_DEL, KC_INS ,  \
-  _______,KC_VOLD,KC_MUTE,KC_VOLU,_______,_______,_______,_______,_______,_______,_______,_______,_______, _______,KC_HOME, \
-  _______, BL_DEC,BL_TOGG, BL_INC,_______,_______,_______,_______,_______,_______,_______,_______,        _______,KC_END, \
-  LENNY  ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_BTN1, KC_MS_U, KC_BTN2, \
-  LENNY  ,_______,_______,                 _______,               _______,_______,KC_APP ,KC_MS_L,KC_MS_D, KC_MS_R),
+  _______,KC_VOLD,KC_MUTE,KC_VOLU,_______,_______,_______,_______,KC_BTN1,KC_MS_U,KC_BTN2,_______,_______, _______,KC_HOME, \
+  _______, BL_DEC,BL_TOGG, BL_INC,_______,_______,_______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,        _______,KC_END, \
+  LENNY  ,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,_______, \
+  LENNY  ,_______,_______,                 _______,               _______,_______,KC_APP ,KC_HOME,KC_PGDN,KC_END),
 };
 
 
@@ -307,6 +312,23 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 				}
 			}
 			break;
+    case 20:
+     if (record ->event.pressed)
+     {
+       key_timer = timer_read();
+       layer_on(_FL);
+     }
+     else
+     {
+       layer_off(_FL);
+       if (timer_elapsed(key_timer) > trigger_time)
+       {
+         register_code(KC_LGUI);
+         unregister_code(KC_LGUI);
+         // MACRO( T(KC_LGUI), END );
+       }
+     }
+     break;
 	}
     return MACRO_NONE;
 };
