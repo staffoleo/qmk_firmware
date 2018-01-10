@@ -1,4 +1,8 @@
 #include "tada68.h"
+#include "process_unicode_common.h"
+#include "process_unicode.h"
+#include "quantum_keycodes.h"
+
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -36,7 +40,7 @@ static uint16_t key_timer;
 #define _______ KC_TRNS
 
 #define LSHIFT OSM(MOD_LSFT)
-#define FN_WIN LT(_FL, KC_LGUI)
+
 #define FN_APP LT(_FL, KC_APP)
 
 #define MY_TAB MT(MOD_LCTL | MOD_LSFT, KC_TAB)
@@ -63,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//		| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10
 	//		KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
 [_BL] = KEYMAP_ANSI(
-  KC_ESC,  T1, 		T2, 		T3, 		T4, 		T5, 		T6, 		T7, 		T8, 		T9, 		T10, 		T11, 		T12, KC_BSPC,KC_GRV, \
+  KC_ESC,    T1, 		T2, 		T3, 		T4, 		T5, 		T6, 		T7, 		T8, 		T9, 		T10, 		T11, 		T12, KC_BSPC,KC_GRV, \
   MY_TAB,  KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC,KC_BSLS,KC_DEL, \
   MY_CAP,  KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,		KC_ENT	   ,KC_PGUP,  \
   KC_LSFT,         KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RSFT,KC_UP,KC_PGDN, \
@@ -73,13 +77,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,----------------------------------------------------------------.
    * |   |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|F11|F12|Del    |Ins |
    * |----------------------------------------------------------------|
-   * |     |VU-|MUT|VU+|   |   |   |   |   |   |   |   |   |     |Hme |
+   * |     |VU-|MUT|VU+|   |   |   |McL|MsU|McR|   |   |   |     |Hme |
    * |----------------------------------------------------------------|
-   * |      |Bl-|BL |BL+|   |   |   |   |   |   |   |   |        |End |
+   * |      |Bl-|BL |BL+|   |   |   |MsL|MsD|MsR|   |   |        |End |
    * |----------------------------------------------------------------|
-   * |        |   |   |	  |   |   |   |   |   |   |   |   McL|MsU|McR |
+   * |        |   |   |	  |   |   |   |   |   |   |   |   |  |PGUP|   |
    * |----------------------------------------------------------------|
-   * |    |    |    |                       |   |   |App |MsL|MsD|MsR |
+   * |    |    |    |                       |   |   |App|HOME|PGDN|END|
    * `----------------------------------------------------------------'
    *
    * App stands for windows context menu
@@ -104,8 +108,11 @@ void led_set_user(uint8_t usb_led) {
     }
 }
 
-
-
+void tap(uint16_t keycode)
+{
+  register_code(keycode);
+  unregister_code(keycode);
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -133,13 +140,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	}
 	return true;
 };
-
-
-void tap(uint16_t keycode){
-    register_code(keycode);
-    unregister_code(keycode);
-};
-
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
     switch (id) {
@@ -329,6 +329,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
        }
      }
      break;
-	}
-    return MACRO_NONE;
+  }
+  return MACRO_NONE;
 };
