@@ -1,7 +1,9 @@
 #include "tada68.h"
 #include "process_unicode_common.h"
 #include "process_unicode.h"
+#include "quantum.h"
 #include "quantum_keycodes.h"
+#include "process_tap_dance.h"
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -16,6 +18,15 @@ enum emoticons {
 	LED_DOWN
 };
 
+enum
+{
+  TD_H_BSPC = 0
+}
+
+const qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_H_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_BSPC)};
+
+#define TD_H TD(TD_H_BSPC)
 
 #define trigger_time 200
 
@@ -104,6 +115,8 @@ void led_set_user(uint8_t usb_led) {
         PORTB &= ~(1<<6);
     }
 }
+
+
 
 int led_status = 0;
 
