@@ -21,10 +21,7 @@ enum emoticons {
 enum
 {
   TD_H_BSPC = 0
-}
-
-const qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_H_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_BSPC)};
+};
 
 #define TD_H TD(TD_H_BSPC)
 
@@ -43,9 +40,7 @@ const qk_tap_dance_action_t tap_dance_actions[] = {
 #define T11 M(11)
 #define T12 M(12)
 #define END_HOME M(0)
-
 #define MY_WIN M(20)
-static uint16_t key_timer;
 
 #define _______ KC_TRNS
 
@@ -55,11 +50,17 @@ static uint16_t key_timer;
 
 #define MY_TAB MT(MOD_LCTL | MOD_LSFT, KC_TAB)
 #define MY_CAP MT(MOD_LCTL, KC_CAPS)
+#define MY_ESC LT(_FL, KC_ESC)
+
+static uint16_t key_timer;
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_H_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_BSPC)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _BL: (Base Layer) Default Layer
    * ,----------------------------------------------------------------.
-   * |Esc |F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|  -|  =|Backsp |~ ` |
+   * |MYES |F1|F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|  -|  =|Backsp |~ ` |
    * |----------------------------------------------------------------|
    * |C+S,Ta| Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |Del |
    * |----------------------------------------------------------------|
@@ -67,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
    * |----------------------------------------------------------------|
-   * |Ctrl|MYWIN|Alt |        Space         |Alt| FN|Ctrl|Lef|Dow|Rig |
+   * |Ctrl| WIN |Alt |        Space         |Alt| FN|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
    */
 
@@ -77,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //		| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10
     //		KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
     [_BL] = KEYMAP_ANSI(
-        KC_ESC, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, KC_BSPC, KC_GRV,
+        MY_ESC, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, KC_BSPC, KC_GRV,
         MY_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-        MY_CAP, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
+        MY_CAP, KC_A, KC_S, KC_D, KC_F, KC_G, TD_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
-        KC_LCTL, MY_WIN, KC_LALT, KC_SPC, KC_RALT, FN_APP, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
+        KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, FN_APP, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
@@ -102,8 +103,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_F11, KC_F12, KC_DEL, KC_INS,
         _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______, _______, KC_HOME,
         _______, BL_DEC, BL_TOGG, BL_INC, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_END,
-        LED_UP , _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME,
-       LED_DOWN, _______, _______, _______, _______, _______, KC_APP, KC_HOME, KC_PGDN, KC_END),
+        LED_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME,
+        LED_DOWN, _______, _______, _______, _______, _______, KC_APP, KC_HOME, KC_PGDN, KC_END),
 };
 
 void led_set_user(uint8_t usb_led) {
