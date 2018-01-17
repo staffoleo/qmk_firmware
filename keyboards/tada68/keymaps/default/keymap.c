@@ -51,6 +51,8 @@ enum
 #define MY_TAB MT(MOD_LCTL | MOD_LSFT, KC_TAB)
 #define MY_CAP MT(MOD_LCTL, KC_CAPS)
 #define MY_ESC LT(_FL, KC_ESC)
+#define MY_F   MT(MOD_LSFT, KC_F)
+#define MY_J   MT(MOD_RSFT, KC_J)
 
 static uint16_t key_timer;
 
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |C+S,Ta| Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |Del |
    * |----------------------------------------------------------------|
-   * |CT,CAPS|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |PgUp|
+   * |CT,CAPS|  A|  S|  D|F_S|  G|  H|J_S|  K|  L|  ;|  '|Return |PgUp|
    * |----------------------------------------------------------------|
    * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift | Up|PgDn|
    * |----------------------------------------------------------------|
@@ -80,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = KEYMAP_ANSI(
         MY_ESC, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, KC_BSPC, KC_GRV,
         MY_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-        MY_CAP, KC_A, KC_S, KC_D, KC_F, KC_G, TD_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
+        MY_CAP, KC_A, KC_S, KC_D, MY_F, KC_G, TD_H, MY_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
         KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, FN_APP, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
 
