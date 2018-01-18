@@ -2,4 +2,4 @@
 #include "config_common.h"
 
 //#define BACKLIGHT_BREATHING
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
