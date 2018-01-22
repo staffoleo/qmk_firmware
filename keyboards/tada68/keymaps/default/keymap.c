@@ -18,14 +18,7 @@ enum emoticons {
 	LED_DOWN
 };
 
-enum
-{
-  TD_H_BSPC = 0
-};
-
-#define TD_H TD(TD_H_BSPC)
-
-#define trigger_time 200
+#define trigger_time 150
 
 #define T1 M(1)
 #define T2 M(2)
@@ -40,7 +33,10 @@ enum
 #define T11 M(11)
 #define T12 M(12)
 #define END_HOME M(0)
+
 #define MY_WIN M(20)
+#define T_ENT M(21)
+#define T_ESC M(22)
 
 #define _______ KC_TRNS
 
@@ -55,9 +51,6 @@ enum
 #define MY_J   MT(MOD_RSFT, KC_J)
 
 static uint16_t key_timer;
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-    [TD_H_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_H, KC_BSPC)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _BL: (Base Layer) Default Layer
@@ -82,8 +75,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = KEYMAP_ANSI(
         MY_ESC, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, KC_BSPC, KC_GRV,
         MY_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-        MY_CAP, KC_A, KC_S, KC_D, MY_F, KC_G, TD_H, MY_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
-        KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
+        MY_CAP, KC_A, KC_S, KC_D, MY_F, KC_G, KC_H, MY_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
+        KC_LSFT, KC_Z, KC_X, KC_C, T_ESC, KC_B, KC_N, T_ENT, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
         KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, FN_APP, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Keymap _FL: Function Layer
@@ -336,6 +329,32 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
        }
      }
      break;
+    case 21:
+      if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(ENT), END );
+				}
+				else {
+					return MACRO( T(M), END );
+				}
+			}
+      break;
+    case 22:
+      if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(ESC), END );
+				}
+				else {
+					return MACRO( T(V), END );
+				}
+			}
+      break;
   }
   return MACRO_NONE;
 };

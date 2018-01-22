@@ -2,4 +2,5 @@
 #include "config_common.h"
 
 //#define BACKLIGHT_BREATHING
-#define TAPPING_TERM 150
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_TERM 500
