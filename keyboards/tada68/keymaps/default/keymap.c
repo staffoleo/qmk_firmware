@@ -12,13 +12,14 @@
 // entirely and just use numbers.
 #define _BL 0
 #define _FL 1
+#define _CURSOR 2
 
 enum emoticons {
 	LED_UP = SAFE_RANGE,
 	LED_DOWN
 };
 
-#define trigger_time 150
+#define trigger_time 125
 
 #define T1 M(1)
 #define T2 M(2)
@@ -37,18 +38,21 @@ enum emoticons {
 #define MY_WIN M(20)
 #define T_ENT M(21)
 #define T_ESC M(22)
-
 #define _______ KC_TRNS
-
-#define LSHIFT OSM(MOD_LSFT)
-
 #define FN_APP LT(_FL, KC_APP)
 
-#define MY_TAB MT(MOD_LCTL | MOD_LSFT, KC_TAB)
-#define MY_CAP MT(MOD_LCTL, KC_CAPS)
+//#define MY_TAB KC_DEL
+#define MY_CAP KC_BSPC
 #define MY_ESC LT(_FL, KC_ESC)
 #define MY_F   MT(MOD_LSFT, KC_F)
 #define MY_J   MT(MOD_RSFT, KC_J)
+#define MY_D   MT(MOD_LCTL, KC_D)
+#define MY_K   MT(MOD_RCTL, KC_K)
+#define MY_S   MT(MOD_LALT, KC_S)
+#define MY_L   MT(MOD_LALT, KC_L)
+
+#define MY_LSFT MO(_CURSOR)
+#define MY_LCTL KC_DEL
 
 static uint16_t key_timer;
 
@@ -73,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //		| F1 | F2 | F3 | F4 | F5 | F6 | F7 | F8 | F9 | F10
     //		KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10,
     [_BL] = KEYMAP_ANSI(
-        MY_ESC, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, KC_BSPC, KC_GRV,
-        MY_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-        MY_CAP, KC_A, KC_S, KC_D, MY_F, KC_G, KC_H, MY_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT, KC_PGUP,
-        KC_LSFT, KC_Z, KC_X, KC_C, T_ESC, KC_B, KC_N, T_ENT, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, KC_PGDN,
-        KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, FN_APP, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RGHT),
+        MY_ESC,  T1,      T2,      T3,    T4,    T5,    T6,    T7,    T8,    T9,      T10,     T11,     T12,     KC_BSPC, KC_GRV,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,  KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
+        MY_CAP,  KC_A,    MY_S,    MY_D,  MY_F,  KC_G,  KC_H,  MY_J,  MY_K,  MY_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
+        MY_LSFT,          KC_Z,    KC_X,  KC_C,  T_ESC, KC_B,  KC_N,  T_ENT, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
+        MY_LCTL, KC_LGUI, KC_LALT,               KC_SPC,                     KC_RALT, FN_APP,  KC_RCTRL,KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
@@ -100,6 +104,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, BL_DEC, BL_TOGG, BL_INC, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_END,
         LED_UP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_HOME,
         LED_DOWN, _______, _______, _______, _______, _______, KC_APP, KC_HOME, KC_PGDN, KC_END),
+
+    /* Keymap _CURSOR
+    * ,----------------------------------------------------------------.
+   * |   |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|F11|F12|Del    |Ins |
+   * |----------------------------------------------------------------|
+   * |     |VU-|MUT|VU+|   |   |   |McL|MsU|McR|   |   |   |     |Hme |
+   * |----------------------------------------------------------------|
+   * |      |Bl-|BL |BL+|   |   |   |MsL|MsD|MsR|   |   |        |End |
+   * |----------------------------------------------------------------|
+   * |        |   |   |	  |   |   |   |   |   |   |   |   |  |PGUP|HOM|
+   * |----------------------------------------------------------------|
+   * |    |    |    |                       |   |   |App|HOME|PGDN|END|
+   * `----------------------------------------------------------------'
+   */
+    [_CURSOR] = KEYMAP_ANSI(
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, _______, _______, _______,
+        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______, _______,
+        _______,          KC_PGUP, _______, KC_PGDN, _______, _______, KC_PGUP, _______, KC_PGDN, _______, _______, _______, _______, _______,
+        _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______)
+
 };
 
 void led_set_user(uint8_t usb_led) {
