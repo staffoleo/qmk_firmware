@@ -45,14 +45,14 @@ enum emoticons {
 #define MY_CAP KC_BSPC
 #define MY_ESC LT(_FL, KC_ESC)
 #define MY_F   MT(MOD_LSFT, KC_F)
-#define MY_J   MT(MOD_RSFT, KC_J)
+#define MY_J   MT(MOD_LSFT, KC_J)
 #define MY_D   MT(MOD_LCTL, KC_D)
-#define MY_K   MT(MOD_RCTL, KC_K)
+#define MY_K   MT(MOD_LCTL, KC_K)
 #define MY_S   MT(MOD_LALT, KC_S)
 #define MY_L   MT(MOD_LALT, KC_L)
 
 #define MY_LSFT MO(_CURSOR)
-#define MY_LCTL KC_DEL
+#define MY_LALT KC_DEL
 
 static uint16_t key_timer;
 
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,  KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
         MY_CAP,  KC_A,    MY_S,    MY_D,  MY_F,  KC_G,  KC_H,  MY_J,  MY_K,  MY_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
         MY_LSFT,          KC_Z,    KC_X,  KC_C,  T_ESC, KC_B,  KC_N,  T_ENT, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
-        MY_LCTL, KC_LGUI, KC_LALT,               KC_SPC,                     KC_RALT, FN_APP,  KC_RCTRL,KC_LEFT, KC_DOWN, KC_RGHT),
+        _______, KC_LGUI, MY_LALT,               KC_SPC,                     KC_RALT, FN_APP,  KC_RCTRL,KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Keymap _FL: Function Layer
    * ,----------------------------------------------------------------.
@@ -120,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_CURSOR] = KEYMAP_ANSI(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, _______, _______, _______,
-        _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______, _______,
-        _______,          KC_PGUP, _______, KC_PGDN, _______, _______, KC_PGUP, _______, KC_PGDN, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______, _______,
+        _______,          _______, _______, _______, _______, _______, KC_PGUP, _______, KC_PGDN, _______, _______, _______, _______, _______,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______)
 
 };
