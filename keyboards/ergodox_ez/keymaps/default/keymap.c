@@ -9,8 +9,13 @@
 #define CURS 3 // cursor layout
 
 //special keys
-#define MY_A LT(CURS, KC_A)
-
+#define MY_A   LT(CURS, KC_A)
+#define MY_S   MT(MOD_LALT, KC_S)
+#define MY_D   MT(MOD_LCTL, KC_D)
+#define MY_F   MT(MOD_LSFT, KC_F)
+#define MY_J   MT(MOD_RSFT, KC_J)
+#define MY_K   MT(MOD_RCTL, KC_K)
+#define MY_L   MT(MOD_LALT, KC_L)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -27,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BkSp   |CURS/A|   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |  ' "   |
+ * | BkSp   |CURS/A| ALT/S|CTRL/D|SHFT/F|   G  |------|           |------|   H  |SHFT/J|CTRL/K| ALT/L|   ;  |  ' "   |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -47,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_EQL,         KC_1,         KC_2,           KC_3,      KC_4,   KC_5,   KC_LEFT,
         KC_TAB,         KC_Q,         KC_W,           KC_E,      KC_R,   KC_T,   TG(SYMB),
-        KC_BSPC,        MY_A,         KC_S,           KC_D,      KC_F,   KC_G,
+        KC_BSPC,        MY_A,         MY_S,           MY_D,      MY_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,           KC_C,      KC_V,   KC_B,   ALL_T(KC_NO),
         LT(SYMB,KC_GRV),KC_APP,       LALT(KC_LSFT),  KC_LEFT,   KC_RGHT,
 
@@ -57,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              KC_RGHT,     KC_6,   KC_7,    KC_8,     KC_9,     KC_0,               KC_MINS,
              TG(SYMB),    KC_Y,   KC_U,    KC_I,     KC_O,     KC_P,               KC_BSLS,
-                          KC_H,   KC_J,    KC_K,     KC_L,     KC_SCLN,            KC_QUOT,
+                          KC_H,   MY_J,    MY_K,     MY_L,     KC_SCLN,            KC_QUOT,
              MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,
                                   KC_UP,   KC_DOWN,  KC_LBRC,  KC_RBRC,            KC_FN1,
 
