@@ -3,6 +3,8 @@
 #include "action_layer.h"
 #include "version.h"
 
+#define trigger_time 110
+
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
@@ -17,6 +19,24 @@
 #define MY_K   MT(MOD_RCTL, KC_K)
 #define MY_L   MT(MOD_LALT, KC_L)
 
+//macros
+#define T1     M(101)
+#define T2     M(102)
+#define T3     M(103)
+#define T4     M(104)
+#define T5     M(105)
+#define T6     M(106)
+#define T7     M(107)
+#define T8     M(108)
+#define T9     M(109)
+#define T10    M(110)
+#define T11    M(111)
+#define T12    M(112)
+
+#define MY_WIN M(120)
+#define T_ENT  M(121)
+#define T_ESC  M(122)
+
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -28,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |  =/F12 | 1/F1 | 2/F2 | 3/F3 | 4/F4 | 5/F5 | LEFT |           | RIGHT| 6/F6 | 7/F7 | 8/F8 | 9/F9 | 0/F10| -/F11  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | TAB    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L1  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -50,20 +70,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,         KC_2,           KC_3,      KC_4,   KC_5,   KC_LEFT,
+        T12,            T1,           T2,             T3,        T4,     T5,     KC_LEFT,
         KC_TAB,         KC_Q,         KC_W,           KC_E,      KC_R,   KC_T,   TG(SYMB),
         KC_BSPC,        MY_A,         MY_S,           MY_D,      MY_F,   KC_G,
-        KC_LSFT,        KC_Z,         KC_X,           KC_C,      KC_V,   KC_B,   ALL_T(KC_NO),
+        KC_LSFT,        KC_Z,         KC_X,           KC_C,      T_ESC,  KC_B,   ALL_T(KC_NO),
         LT(SYMB,KC_GRV),KC_APP,       LALT(KC_LSFT),  KC_LEFT,   KC_RGHT,
 
                                               ALT_T(KC_APP),  KC_LGUI,
                                                               KC_HOME,
                                                KC_SPC,KC_BSPC,KC_END,
         // right hand
-             KC_RGHT,     KC_6,   KC_7,    KC_8,     KC_9,     KC_0,               KC_MINS,
+             KC_RGHT,     T6,     T7,      T8,       T9,       T10,                T11,
              TG(SYMB),    KC_Y,   KC_U,    KC_I,     KC_O,     KC_P,               KC_BSLS,
                           KC_H,   MY_J,    MY_K,     MY_L,     KC_SCLN,            KC_QUOT,
-             MEH_T(KC_NO),KC_N,   KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,
+             MEH_T(KC_NO),KC_N,   T_ENT,   KC_COMM,  KC_DOT,   KC_SLSH,            KC_RSFT,
                                   KC_UP,   KC_DOWN,  KC_LBRC,  KC_RBRC,            KC_FN1,
 
              KC_LALT,        CTL_T(KC_ESC),
@@ -213,6 +233,206 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       if (record->event.pressed) { // For resetting EEPROM
         eeconfig_init();
       }
+      break;
+
+		case 101:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F1), END );
+				}
+				else {
+					return MACRO( T(1), END );
+				}
+			}
+			break;
+		case 102:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F2), END );
+				}
+				else {
+					return MACRO( T(2), END );
+				}
+			}
+			break;
+		case 103:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F3), END );
+				}
+				else {
+					return MACRO( T(3), END );
+				}
+			}
+			break;
+		case 104:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F4), END );
+				}
+				else {
+					return MACRO( T(4), END );
+				}
+			}
+			break;
+		case 105:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F5), END );
+				}
+				else {
+					return MACRO( T(5), END );
+				}
+			}
+			break;
+		case 106:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F6), END );
+				}
+				else {
+					return MACRO( T(6), END );
+				}
+			}
+			break;
+		case 107:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F7), END );
+				}
+				else {
+					return MACRO( T(7), END );
+				}
+			}
+			break;
+		case 108:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F8), END );
+				}
+				else {
+					return MACRO( T(8), END );
+				}
+			}
+			break;
+		case 109:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F9), END );
+				}
+				else {
+					return MACRO( T(9), END );
+				}
+			}
+			break;
+		case 110:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F10), END );
+				}
+				else {
+					return MACRO( T(0), END );
+				}
+			}
+			break;
+		case 111:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F11), END );
+				}
+				else {
+					return MACRO( T(MINS), END );
+				}
+			}
+			break;
+		case 112:
+			if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(F12), END );
+				}
+				else {
+					return MACRO( T(EQL), END );
+				}
+			}
+			break;
+    case 120:
+     if (record ->event.pressed)
+     {
+       key_timer = timer_read();
+       layer_on(_FL);
+     }
+     else
+     {
+       layer_off(_FL);
+       if (timer_elapsed(key_timer) < trigger_time)
+       {
+         register_code(KC_LGUI);
+         unregister_code(KC_LGUI);
+         // MACRO( T(KC_LGUI), END );
+       }
+     }
+     break;
+    case 121:
+      if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(ENT), END );
+				}
+				else {
+					return MACRO( T(M), END );
+				}
+			}
+      break;
+    case 122:
+      if (record->event.pressed) {
+				key_timer = timer_read();
+			}
+			else {
+				if (timer_elapsed(key_timer) > trigger_time) {
+					return MACRO( T(ESC), END );
+				}
+				else {
+					return MACRO( T(V), END );
+				}
+			}
       break;
   }
   return MACRO_NONE;
