@@ -220,6 +220,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
+static uint16_t key_timer;
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
@@ -395,11 +396,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
      if (record ->event.pressed)
      {
        key_timer = timer_read();
-       layer_on(_FL);
+       layer_on(BASE);
      }
      else
      {
-       layer_off(_FL);
+       layer_off(BASE);
        if (timer_elapsed(key_timer) < trigger_time)
        {
          register_code(KC_LGUI);

@@ -19,8 +19,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y build-essential
     avrdude \
     && rm -rf /var/lib/apt/lists/*
 
-ENV keyboard=ergodox
-ENV subproject=ez
+ENV keyboard=ergodox_ez
 ENV keymap=default
 
 VOLUME /qmk
