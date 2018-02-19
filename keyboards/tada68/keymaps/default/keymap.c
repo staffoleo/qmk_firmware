@@ -51,7 +51,7 @@ enum emoticons {
 #define MY_S   MT(MOD_LALT, KC_S)
 #define MY_L   MT(MOD_LALT, KC_L)
 
-#define MY_A MO(_CURSOR)
+#define MY_A   LT(_CURSOR, KC_A)
 #define MY_LALT KC_DEL
 
 static uint16_t key_timer;
