@@ -51,7 +51,7 @@ enum emoticons {
 #define MY_S   MT(MOD_LALT, KC_S)
 #define MY_L   MT(MOD_LALT, KC_L)
 
-#define MY_LSFT MO(_CURSOR)
+#define MY_A MO(_CURSOR)
 #define MY_LALT KC_DEL
 
 static uint16_t key_timer;
@@ -79,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BL] = KEYMAP_ANSI(
         MY_ESC,  T1,      T2,      T3,    T4,    T5,    T6,    T7,    T8,    T9,      T10,     T11,     T12,     KC_BSPC, KC_GRV,
         KC_TAB,  KC_Q,    KC_W,    KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,  KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, KC_DEL,
-        MY_CAP,  KC_A,    MY_S,    MY_D,  MY_F,  KC_G,  KC_H,  MY_J,  MY_K,  MY_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
-        MY_LSFT,          KC_Z,    KC_X,  KC_C,  T_ESC, KC_B,  KC_N,  T_ENT, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
+        MY_CAP,  MY_A,    MY_S,    MY_D,  MY_F,  KC_G,  KC_H,  MY_J,  MY_K,  MY_L,    KC_SCLN, KC_QUOT,          KC_ENT,  KC_PGUP,
+        _______,          KC_Z,    KC_X,  KC_C,  T_ESC, KC_B,  KC_N,  T_ENT, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_UP,   KC_PGDN,
         _______, KC_LGUI, MY_LALT,               KC_SPC,                     KC_RALT, FN_APP,  KC_RCTRL,KC_LEFT, KC_DOWN, KC_RGHT),
 
     /* Keymap _FL: Function Layer
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_CURSOR] = KEYMAP_ANSI(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_UP  , KC_END , _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,          _______, _______,
+        _______, _______, _______, _______, _______, _______, KC_BSPC, KC_LEFT, KC_DOWN, KC_RGHT, KC_DEL,  _______,          _______, _______,
         _______,          _______, _______, _______, _______, _______, _______, KC_PGUP, _______, KC_PGDN, _______, _______, _______, _______,
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______)
 
